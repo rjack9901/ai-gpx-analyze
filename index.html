@@ -10,16 +10,16 @@
         .gradient-bg { background: linear-gradient(135deg, #020617 0%, #0f172a 100%); }
         .card { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.06); }
         .chart-container { position: relative; height: 350px; width: 100%; }
-        .btn-primary { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); }
         .btn-ai { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+        .drag-active { border-color: #3b82f6 !important; background: rgba(59, 130, 246, 0.1) !important; transform: scale(1.01); }
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
     </style>
 </head>
 <body class="gradient-bg min-h-screen text-slate-200 font-sans">
 
-    <!-- Header -->
     <div class="max-w-6xl mx-auto p-4 md:p-8">
+        <!-- Header -->
         <header class="mb-10 flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
             <div>
                 <h1 class="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">GPX 數據中心</h1>
@@ -37,7 +37,7 @@
         </header>
 
         <!-- Upload Zone -->
-        <div id="uploadZone" class="card p-12 rounded-3xl mb-10 text-center border-dashed border-2 border-slate-700 hover:border-blue-500/50 transition-all cursor-pointer group">
+        <div id="uploadZone" class="card p-12 rounded-3xl mb-10 text-center border-dashed border-2 border-slate-700 hover:border-blue-500/50 transition-all cursor-pointer group relative">
             <input type="file" id="gpxInput" accept=".gpx" class="hidden">
             <label for="gpxInput" class="cursor-pointer block">
                 <div class="w-16 h-16 bg-blue-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
@@ -45,8 +45,8 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                     </svg>
                 </div>
-                <h2 class="text-xl font-bold text-slate-200">上傳 GPX 檔案進行分析</h2>
-                <p class="text-slate-500 text-sm mt-2 font-medium">匯入數據後，即可複製數據發送給 Gemini AI 教練</p>
+                <h2 class="text-xl font-bold text-slate-200">將 GPX 檔案拖曳至此或點擊上傳</h2>
+                <p class="text-slate-500 text-sm mt-2 font-medium italic">支援 COROS, Garmin, Strava 等設備匯出的檔案</p>
             </label>
         </div>
 
@@ -55,7 +55,6 @@
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-4" id="summary"></div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Data Visualization -->
                 <div class="lg:col-span-2 space-y-8">
                     <!-- Chart -->
                     <div class="card p-8 rounded-3xl shadow-xl">
@@ -76,8 +75,7 @@
                     <!-- Lap Table -->
                     <div class="card p-8 rounded-3xl shadow-xl">
                         <h2 class="text-lg font-bold mb-8 flex items-center">
-                            <span class="w-1.5 h-6 bg-emerald-500 rounded-full mr-3"></span>每公里分圈詳情
-                        </h2>
+                            <span class="w-1.5 h-6 bg-emerald-500 rounded-full mr-3"></span>每公里分圈詳情</h2>
                         <div class="overflow-x-auto">
                             <table class="w-full text-left text-sm">
                                 <thead class="text-slate-500 font-bold uppercase tracking-widest text-[10px]">
@@ -94,28 +92,22 @@
                     </div>
                 </div>
 
-                <!-- AI Instructions Sidebar -->
+                <!-- AI Sidebar -->
                 <div class="space-y-6">
                     <div class="card p-8 rounded-3xl border-t-4 border-emerald-500 shadow-2xl sticky top-8">
                         <h2 class="text-xl font-black text-white mb-6">Gemini AI 分析指引</h2>
                         <div class="space-y-6 text-sm text-slate-400 leading-relaxed">
                             <div class="flex gap-4">
                                 <div class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs flex-shrink-0">1</div>
-                                <p>匯入您的 GPX 檔案，系統會自動處理分圈與心率數據。</p>
+                                <p>匯入 GPX 檔案後，系統會自動生成上方報表。</p>
                             </div>
                             <div class="flex gap-4">
                                 <div class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs flex-shrink-0">2</div>
-                                <p>點擊右上方的「<span class="text-emerald-300 font-bold">複製 AI 分析指令</span>」，我們已為您準備好專業的 Prompt。</p>
+                                <p>點擊「<span class="text-emerald-300 font-bold">複製 AI 分析指令</span>」，取得專業教練 Prompt。</p>
                             </div>
                             <div class="flex gap-4">
                                 <div class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs flex-shrink-0">3</div>
-                                <p>打開 Gemini 網頁版，將指令貼上並送出。AI 教練將為您進行深度解讀。</p>
-                            </div>
-                            
-                            <hr class="border-slate-800">
-                            
-                            <div class="p-4 bg-white/5 rounded-2xl text-[11px] italic">
-                                💡 提示：使用網頁版 Gemini 可以獲得更人性化的教練建議，且不受 API 額度限制。
+                                <p>在 Gemini 網頁版貼上指令，即時獲取教練回饋。</p>
                             </div>
                         </div>
                     </div>
@@ -128,16 +120,50 @@
         let mainChart = null;
         let globalData = null;
 
-        document.getElementById('gpxInput').addEventListener('change', e => {
-            const file = e.target.files[0];
-            if (file) {
+        const uploadZone = document.getElementById('uploadZone');
+        const fileInput = document.getElementById('gpxInput');
+
+        // 拖曳事件處理
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            uploadZone.addEventListener(eventName, preventDefaults, false);
+            document.body.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            uploadZone.addEventListener(eventName, () => uploadZone.classList.add('drag-active'), false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            uploadZone.addEventListener(eventName, () => uploadZone.classList.remove('drag-active'), false);
+        });
+
+        uploadZone.addEventListener('drop', handleDrop, false);
+
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const file = dt.files[0];
+            handleFile(file);
+        }
+
+        fileInput.addEventListener('change', function() {
+            handleFile(this.files[0]);
+        });
+
+        function handleFile(file) {
+            if (file && file.name.toLowerCase().endsWith('.gpx')) {
                 const reader = new FileReader();
                 reader.onload = evt => analyzeGPX(evt.target.result);
                 reader.readAsText(file);
+            } else {
+                alert("請上傳有效的 .gpx 檔案");
             }
-        });
+        }
 
-        // 多標籤數據抓取輔助函數
         function getVal(node, tags) {
             for (let tag of tags) {
                 const el = node.getElementsByTagName(tag)[0] || 
@@ -269,26 +295,8 @@
 
         function copyDataForAI() {
             if (!globalData) return alert("請先匯入數據檔案。");
-
             const totalD = (globalData.points[globalData.points.length-1].dist / 1000).toFixed(2);
-            const prompt = `您是一位專業的馬拉松與跑步教練。請根據我匯入的 10 公里跑步數據，為我提供專業的技術分析與訓練建議。
-            
-數據概覽：
-- 總距離：${totalD} km
-- 平均心率：${(globalData.points.reduce((a,b)=>a+b.hr,0)/globalData.points.length).toFixed(0)} bpm
-- 平均步頻：${(globalData.points.reduce((a,b)=>a+b.cad,0)/globalData.points.length*2).toFixed(0)} spm
-
-分圈詳情 (每公里)：
-${globalData.laps.map(l => `第 ${l.lap} 圈: 配速 ${l.pace}, 平均心率 ${l.hr}, 平均步頻 ${l.cad}`).join('\n')}
-
-請針對以下重點進行解讀：
-1. 配速穩定度與分段策略 (Splits)：我是先快後慢還是先慢後快？這代表什麼？
-2. 有氧效率：分析我的心率與配速關係，是否有明顯的心率漂移 (Cardiac Drift)？
-3. 技術改進：步頻是否合理？
-4. 行動方案：請給我 3 個具體的訓練目標以優化下一次表現。
-
-請使用繁體中文，以專業教練的口吻回答，並使用 Markdown 格式讓報告易於閱讀。`;
-
+            const prompt = `您是一位專業的馬拉松與跑步教練。請根據我匯入的 10 公里跑步數據，為我提供專業的技術分析與訓練建議。\n\n數據概覽：\n- 總距離：${totalD} km\n- 平均心率：${(globalData.points.reduce((a,b)=>a+b.hr,0)/globalData.points.length).toFixed(0)} bpm\n- 平均步頻：${(globalData.points.reduce((a,b)=>a+b.cad,0)/globalData.points.length*2).toFixed(0)} spm\n\n分圈詳情 (每公里)：\n${globalData.laps.map(l => `第 ${l.lap} 圈: 配速 ${l.pace}, 平均心率 ${l.hr}, 平均步頻 ${l.cad}`).join('\n')}\n\n請針對以下重點進行解讀：\n1. 配速穩定度與分段策略 (Splits)：我是先快後慢還是先慢後快？這代表什麼？\n2. 有氧效率：分析我的心率與配速關係，是否有明顯的心率漂移 (Cardiac Drift)？\n3. 技術改進：步頻是否合理？\n4. 行動方案：請給我 3 個具體的訓練目標以優化下一次表現。\n\n請使用繁體中文，以專業教練的口吻回答，並使用 Markdown 格式讓報告易於閱讀。`;
             navigator.clipboard.writeText(prompt).then(() => {
                 alert("教練指令已複製到剪貼簿！請現在開啟 Gemini 網頁版並貼上。");
             });
