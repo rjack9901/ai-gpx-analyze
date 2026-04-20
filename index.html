@@ -296,7 +296,14 @@
         function copyDataForAI() {
             if (!globalData) return alert("請先匯入數據檔案。");
             const totalD = (globalData.points[globalData.points.length-1].dist / 1000).toFixed(2);
-            const prompt = `您是一位專業的馬拉松與跑步教練。請根據我匯入的 10 公里跑步數據，為我提供專業的技術分析與訓練建議。\n\n數據概覽：\n- 總距離：${totalD} km\n- 平均心率：${(globalData.points.reduce((a,b)=>a+b.hr,0)/globalData.points.length).toFixed(0)} bpm\n- 平均步頻：${(globalData.points.reduce((a,b)=>a+b.cad,0)/globalData.points.length*2).toFixed(0)} spm\n\n分圈詳情 (每公里)：\n${globalData.laps.map(l => `第 ${l.lap} 圈: 配速 ${l.pace}, 平均心率 ${l.hr}, 平均步頻 ${l.cad}`).join('\n')}\n\n請針對以下重點進行解讀：\n1. 配速穩定度與分段策略 (Splits)：我是先快後慢還是先慢後快？這代表什麼？\n2. 有氧效率：分析我的心率與配速關係，是否有明顯的心率漂移 (Cardiac Drift)？\n3. 技術改進：步頻是否合理？\n4. 行動方案：請給我 3 個具體的訓練目標以優化下一次表現。\n\n請使用繁體中文，以專業教練的口吻回答，並使用 Markdown 格式讓報告易於閱讀。`;
+            const startTime = globalData.points[0].time;
+            const formattedTime = startTime.toLocaleString('zh-TW', {
+                year: 'numeric', month: '2-digit', day: '2-digit',
+                hour: '2-digit', minute: '2-digit',
+                hour12: false
+            });
+
+            const prompt = `您是一位專業的馬拉松與跑步教練。請根據我匯入的跑步數據，為我提供專業的技術分析與訓練建議。\n\n數據概覽：\n- 運動時間：${formattedTime}\n- 總距離：${totalD} km\n- 平均心率：${(globalData.points.reduce((a,b)=>a+b.hr,0)/globalData.points.length).toFixed(0)} bpm\n- 平均步頻：${(globalData.points.reduce((a,b)=>a+b.cad,0)/globalData.points.length*2).toFixed(0)} spm\n\n分圈詳情 (每公里)：\n${globalData.laps.map(l => `第 ${l.lap} 圈: 配速 ${l.pace}, 平均心率 ${l.hr}, 平均步頻 ${l.cad}`).join('\n')}\n\n請針對以下重點進行解讀：\n1. 配速穩定度與分段策略 (Splits)：我是先快後慢還是先慢後快？這代表什麼？\n2. 有氧效率：分析我的心率與配速關係，是否有明顯的心率漂移 (Cardiac Drift)？\n3. 技術改進：步頻是否合理？\n4. 行動方案：請給我 3 個具體的訓練目標以優化下一次表現。\n\n請使用繁體中文，以專業教練的口吻回答，並使用 Markdown 格式讓報告易於閱讀。`;
             navigator.clipboard.writeText(prompt).then(() => {
                 alert("教練指令已複製到剪貼簿！請現在開啟 Gemini 網頁版並貼上。");
             });
