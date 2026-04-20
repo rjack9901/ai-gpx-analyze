@@ -28,13 +28,5 @@ You can use this tool directly online via GitHub Pages:
 
 ---
 
-## 🌐 How to Setup GitHub Pages
-To make the "Open App" button work:
-1. Push this project to a new GitHub repository.
-2. Go to **Settings** > **Pages**.
-3. Select the **main** branch and click **Save**.
-4. Update the links at the top of this `README.md` with your generated URL.
-
----
 
 *Made with ❤️ for runners who love data.*
