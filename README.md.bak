@@ -1,13 +1,25 @@
 # GPX AI Performance Center 🏃‍♂️🤖
 
+<<<<<<< HEAD
+[![Open in App](https://img.shields.io/badge/Open-App-blue?style=for-the-badge&logo=github)](https://YOUR_USERNAME.github.io/YOUR_REPO_NAME/)
+=======
 [![Open in App](https://img.shields.io/badge/Open-App-blue?style=for-the-badge&logo=github)](https://rjack9901.github.io/ai-gpx-analyze/)
+>>>>>>> c497d0605c0bc612b7767329416884c5baa07523
+
 > **A professional GPX analyzer that transforms raw workout data into actionable AI-driven coaching insights.**
 
 ---
 
 ## 🚀 Live Access
 You can use this tool directly online via GitHub Pages:
+<<<<<<< HEAD
+👉 **[Click Here to Open the GPX AI Performance Center](https://YOUR_USERNAME.github.io/YOUR_REPO_NAME/)**
+
+*(Note: Replace `YOUR_USERNAME` and `YOUR_REPO_NAME` with your actual GitHub info after deployment.)*
+=======
 👉 **[Click Here to Open the GPX AI Performance Center](https://rjack9901.github.io/ai-gpx-analyze/)**
+
+>>>>>>> c497d0605c0bc612b7767329416884c5baa07523
 
 ---
 
