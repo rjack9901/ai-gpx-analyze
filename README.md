@@ -10,7 +10,6 @@
 You can use this tool directly online via GitHub Pages:
 👉 **[Click Here to Open the GPX AI Performance Center](https://YOUR_USERNAME.github.io/YOUR_REPO_NAME/)**
 
-*(Note: Replace `YOUR_USERNAME` and `YOUR_REPO_NAME` with your actual GitHub info after deployment.)*
 
 ---
 
